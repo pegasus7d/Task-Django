@@ -7,12 +7,16 @@ from .models import *
 from .serializers import *
 import numpy as np
 from datetime import datetime
-
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 @api_view(['GET'])
 def test(request):
     return Response({'message': 'This is a test endpoint!'})
 
 @api_view(['GET', 'POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def vendor_list(request):
     # Handling GET request
     if request.method == 'GET':
@@ -29,6 +33,8 @@ def vendor_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def vendor_detail(request, vendor_id):
     try:
         vendor = Vendor.objects.get(pk=vendor_id)
@@ -50,6 +56,8 @@ def vendor_detail(request, vendor_id):
         vendor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 @api_view(['GET', 'POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def create_purchase_order(request):
     # Handle GET request: List all purchase orders or filter by vendor
     if request.method == 'GET':
@@ -70,6 +78,8 @@ def create_purchase_order(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def purchase_order_detail(request, po_id):
     try:
         purchase_order = PurchaseOrder.objects.get(pk=po_id)
@@ -126,6 +136,8 @@ def update_average_response_time(vendor):
         vendor.save(update_fields=['average_response_time'])
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def vendor_performance(request, vendor_id):
     try:
         vendor = Vendor.objects.get(pk=vendor_id)
@@ -163,6 +175,8 @@ def vendor_performance(request, vendor_id):
     return Response(performance_metrics, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def acknowledge_purchase_order(request, po_id):
     try:
         purchase_order = PurchaseOrder.objects.get(pk=po_id)
