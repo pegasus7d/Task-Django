@@ -19,15 +19,49 @@ Ensure you have Python and pip installed on your system. You will also need the 
 Follow these steps to get your development environment running:
 
 1. **Clone the repository**
+   To start, clone the repository to your local machine and navigate into the project directory:
 
    ```bash
    git clone https://github.com/yourusername/django-vendor-management.git
    cd django-vendor-management
+2. **Set up a virtual environment**
+Next, set up a Python virtual environment by running:
 
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   pip install django djangorestframework djangorestframework-simplejwt numpy
-   python manage.py migrate
-   python manage.py createsuperuser
-   python manage.py runserver
+- For Unix-based systems:
+  ```
+  python -m venv venv
+  source venv/bin/activate
+  ```
+- For Windows:
+  ```
+  python -m venv venv
+  venv\Scripts\activate
+  ```
+
+3. **Install the required packages**
+Install Django, Django REST Framework, SimpleJWT, and NumPy using pip:
+  ```
+  pip install django djangorestframework djangorestframework-simplejwt numpy
+  ```
+
+4. **Apply migrations**
+Initialize your database schema by applying migrations:
+
+  ```
+  python manage.py migrate
+  ```
+5. **Create an admin user**
+Create a superuser for the Django admin interface:
+  ```
+  python manage.py createsuperuser
+  ```
+
+6. **Run the development server**
+Start the development server to make the application accessible on your local machine:
+  ```
+  python manage.py runserver
+  ```
+
+Access the server at http://127.0.0.1:8000/
+   
 
