@@ -67,7 +67,50 @@ Access the server at http://127.0.0.1:8000/
 
 # Backend Logic and Data Models
 
-## Data Models
+## Authentication
+
+Before interacting with the secured routes, users must authenticate and obtain an access token. This system uses JWT (JSON Web Tokens) for authentication.
+
+### Obtaining Access Tokens
+
+- **Obtain Access Token**
+  - **POST** `/api/token/`: Pass your username and password to receive an access and refresh token.
+  - **Request Body**:
+    ```json
+    {
+      "username": "your_username",
+      "password": "your_password"
+    }
+    ```
+  - **Response**:
+    ```json
+    {
+      "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoi...",
+      "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoi..."
+    }
+    ```
+
+- **Refresh Access Token**
+  - **POST** `/api/token/refresh/`: Submit your refresh token to renew your access token.
+  - **Request Body**:
+    ```json
+    {
+      "refresh": "your_refresh_token"
+    }
+    ```
+  - **Response**:
+    ```json
+    {
+      "access": "new_access_token"
+    }
+    ```
+
+### Using Access Tokens
+
+Include the access token in the Authorization header of your requests to access the secured API endpoints.
+
+Example:
+
 
 ### Vendor Model
 Stores essential information about each vendor along with performance metrics.
