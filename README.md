@@ -108,6 +108,12 @@ Before interacting with the secured routes, users must authenticate and obtain a
 ### Using Access Tokens
 
 Include the access token in the Authorization header of your requests to access the secured API endpoints.
+After obtaining your access token, use it as a Bearer token to authenticate requests to the secured API endpoints. Include the access token in the Authorization header of your HTTP requests as follows:
+
+- **Authorization Header**
+  ```plaintext
+  Authorization: Bearer your_access_token_here
+
 
 Example:
 
